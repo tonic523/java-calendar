@@ -20,18 +20,19 @@ public class CalendarMain {
 	}
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("반복횟수를 입력하세요.");
-		int num = scanner.nextInt();
-		
-		System.out.println("월을 입력하세요.");
-		int[] month = new int[num];
-		
-		for (int i = 0; i < month.length; i++) {
-			month[i] = scanner.nextInt();
-		}
-		for (int j = 0; j < month.length; j++) {
-			getMaxDaysOfMonth(month[j]);
+		Scanner scanner = new Scanner(System.in);	
+		int month = 0;
+		String PROMPT = "cal> ";
+		while(true) {
+			System.out.println("월을 입력하세요.");
+			System.out.print(PROMPT);
+			month = scanner.nextInt();
+			if (month < 1 | month > 12) {
+				System.out.println("잘못 입력하였습니다.");
+				break;
+			}else {
+				getMaxDaysOfMonth(month);
+			}
 		}
 		printSampleCalender();
 		scanner.close();
