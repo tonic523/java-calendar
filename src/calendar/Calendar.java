@@ -8,8 +8,7 @@ public class Calendar {
 
 	}
 
-	public void printCalendar(int year, int month, int week) {
-		// 윤년 구하기
+	public int getLeapdays(int year) {
 		int february = 28;
 		if (year % 4 == 0) {
 			february = 29;
@@ -20,15 +19,29 @@ public class Calendar {
 				}
 			}
 		}
-		MONTH_OF_MAX_DAYS[1] = february;
-
+		return february;
+	}
+	
+	public int getWeekday(int year, int month) {
+		year --;
+		int week = 1;
+		week = 1 + ((year + year/4 - year/100 + year/400) % 7);
+		if (month != 1) {
+			for (int i = 0; i < month - 1; i++) {
+				week = (week + (Calendar.MONTH_OF_MAX_DAYS[i] % 7)) % 7;
+			}
+		}
+		return week;
+	}
+	
+	public void printCalendar(int year, int month, int week) {	
 		// 달력 출력
 		System.out.printf("     <<%4d %2d>>", year, month);
 		System.out.println();
 		System.out.println("SU\tMO\tTU\tWE\tTH\tFR\tSA");
 		System.out.println(" -------------------------------------------------");
 		for (int i = 0; i < week; i++) {
-			System.out.printf("\t");
+			System.out.printf("  \t");
 		}
 		for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
 			System.out.printf(i + "\t");
