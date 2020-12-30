@@ -1,46 +1,76 @@
 package calendar;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Prompt {
-	
-	public static void main(String[] args) {
-		int year = 2020;
-		int month = 1;
-		int week = 1;
-		Calendar cal = new Calendar();
-		Scanner scanner = new Scanner(System.in);
-		while (true) {
-			// 연도 입력
-			System.out.println("연도를 입력하세요.");
-			System.out.printf("YEAR> ");
-			year = scanner.nextInt();
 
-			// 월 입력
-			System.out.println("월을 입력하세요.(종료 = -1)");
-			System.out.printf("MONTH> ");
-			month = scanner.nextInt();
-			
-			// 예외 처리
-			if (month == -1) {
-				System.out.println("프로그램을 종료합니다.");
-				break;
-			} else if (month < 1 | month > 12) {
-				System.out.println("월을 잘못 입력하였습니다. 다시 입력해주세요!");
-				continue;
-			}
-			// Get leapdays
-			Calendar.MONTH_OF_MAX_DAYS[1] = cal.getLeapdays(year);
-			
-			// 년, 월의 1일 요일 계산
-			week = cal.getWeekday(year, month);
-			
-			// 달력 출력
-			cal.printCalendar(year, month, week);
-			System.out.println("");
-		}
-		scanner.close();
+	static void ui() {
+		System.out.println("+--------------+");
+		System.out.println("| 1. 일정 등록");
+		System.out.println("| 2. 일정 검색");
+		System.out.println("| 3. 딜력 보기");
+		System.out.println("| 4. 도움말 q. 종료");
+		System.out.println("+--------------+");
 
 	}
 
+	static void scheduleRegistration() {
+
+	}
+
+	public static void main(String[] args) {
+		int year = 2020;
+		int month = 1;
+		int command = 0;
+		String date;
+		String dateSchedule;
+		HashMap<String, String> schedule = new HashMap<>();
+		Scanner scanner = new Scanner(System.in);
+		ui();
+		while (true) {
+			System.out.println("명령 (1, 2, 3, 4, 5)");
+			System.out.print("> ");
+			command = scanner.nextInt();
+			scanner.nextLine(); // 개행문자 제거
+			switch (command) {
+			case 1:	
+				System.out.println("[일정 등록] 날짜를 입력하세요.");
+				System.out.print("> ");
+				date = scanner.nextLine();
+				System.out.println("일정을 입력하세요.");
+				dateSchedule = scanner.nextLine();
+				schedule.put(date, dateSchedule);
+				System.out.println("일정이 등록되었습니다.");
+				break;
+			case 2:
+				System.out.println("[일정 검색] 날짜를 입력하세요.");
+				System.out.print("> ");
+				date = scanner.nextLine();
+				System.out.printf("%d개의 일정이 있습니다.\n", schedule.size());
+				for (int i = 0; i < schedule.size(); i++) {
+					System.out.printf("%d. %s\n", i+1, schedule.get(date));
+				}
+				break;
+			case 3:
+				System.out.println("연도를 입력하세요.");
+				System.out.printf("YEAR> ");
+				year = scanner.nextInt();
+				System.out.println("월을 입력하세요.(종료 = -1)");
+				System.out.printf("MONTH> ");
+				month = scanner.nextInt();
+				Calendar.printCalendar(year, month);
+				break;
+			case 4:
+
+				break;
+			case 5:
+
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
 }
