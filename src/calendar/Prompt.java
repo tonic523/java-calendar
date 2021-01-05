@@ -2,6 +2,7 @@ package calendar;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Calendar;
 
 public class Prompt {
 
@@ -20,13 +21,15 @@ public class Prompt {
 	}
 
 	public static void main(String[] args) {
-		int year = 2020;
-		int month = 1;
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
 		int command = 0;
 		String date;
 		String dateSchedule;
 		HashMap<String, String> schedule = new HashMap<>();
 		Scanner scanner = new Scanner(System.in);
+		Calendar2.printCalendar(year, month);
 		ui();
 		while (true) {
 			System.out.println("명령 (1, 2, 3, 4, 5)");
@@ -59,7 +62,7 @@ public class Prompt {
 				System.out.println("월을 입력하세요.(종료 = -1)");
 				System.out.printf("MONTH> ");
 				month = scanner.nextInt();
-				Calendar.printCalendar(year, month);
+				Calendar2.printCalendar(year, month);
 				break;
 			case 4:
 

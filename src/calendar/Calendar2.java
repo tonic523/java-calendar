@@ -1,10 +1,10 @@
 package calendar;
 
-public class Calendar {
+public class Calendar2 {
 
 	public static int[] MONTH_OF_MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	public Calendar() {
+	public Calendar2() {
 
 	}
 
@@ -28,7 +28,7 @@ public class Calendar {
 		week = 1 + ((year + year/4 - year/100 + year/400) % 7);
 		if (month != 1) {
 			for (int i = 0; i < month - 1; i++) {
-				week = (week + (Calendar.MONTH_OF_MAX_DAYS[i] % 7)) % 7;
+				week = (week + (Calendar2.MONTH_OF_MAX_DAYS[i] % 7)) % 7;
 			}
 		}
 		return week;
@@ -51,7 +51,7 @@ public class Calendar {
 			}
 
 		}
-
+		System.out.println();
 	}
 
 }
