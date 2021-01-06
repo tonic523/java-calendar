@@ -1,10 +1,23 @@
 package calendar;
 
-public class Calendar2 {
+import java.util.Calendar;
+
+public class CalendarItem {
 
 	public static int[] MONTH_OF_MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	public Calendar2() {
+	public CalendarItem() {
+
+	}
+
+	public static int[] getTodaysCalendar(int year, int month) {
+		int[] ym = new int[2];
+		Calendar cal = Calendar.getInstance();
+		year = cal.get(Calendar.YEAR);
+		ym[0] = year;
+		month = cal.get(Calendar.MONTH) + 1;
+		ym[1] = month;
+		return ym;
 
 	}
 
@@ -28,7 +41,7 @@ public class Calendar2 {
 		week = 1 + ((year + year / 4 - year / 100 + year / 400) % 7);
 		if (month != 1) {
 			for (int i = 0; i < month - 1; i++) {
-				week = (week + (Calendar2.MONTH_OF_MAX_DAYS[i] % 7)) % 7;
+				week = (week + (CalendarItem.MONTH_OF_MAX_DAYS[i] % 7)) % 7;
 			}
 		}
 		return week;
@@ -40,6 +53,7 @@ public class Calendar2 {
 		System.out.println("SU\tMO\tTU\tWE\tTH\tFR\tSA");
 		System.out.println(" -------------------------------------------------");
 	}
+
 	public static void printCalendar(int year, int month) {
 		getLeapdays(year); // 윤년 계산
 		int week = getWeekday(year, month); // 1일 요일 계산
@@ -75,7 +89,7 @@ public class Calendar2 {
 					System.out.println();
 				}
 			}
-		}else {
+		} else {
 			for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
 				System.out.printf(i + "\t");
 				if ((i + week) % 7 == 0) {
