@@ -1,11 +1,12 @@
 package calendar;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Prompt {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		int year = 0;
 		int month = 0;
 		int[] temp = new int[2];
@@ -26,7 +27,7 @@ public class Prompt {
 			scanner.nextLine(); // 개행문자 제거
 			switch (command) {
 			case '1':
-				schedule = PlanItem.cmdRegister(scanner, schedule);
+				PlanItem.cmdRegister(scanner);
 				break;
 			case '2':
 				PlanItem.cmdSearch(schedule, scanner);

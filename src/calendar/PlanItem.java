@@ -2,7 +2,9 @@ package calendar;
 
 import java.util.HashMap;
 import java.util.Scanner;
-
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 public class PlanItem {
 	public static void cmdMenu() {
 		System.out.println("+--------------+");
@@ -18,6 +20,7 @@ public class PlanItem {
 		System.out.println("[일정 검색] 날짜를 입력하세요.(yyyy.mm.dd)");
 		System.out.print("> ");
 		String date = s.nextLine();
+		//파일에서 일정 불러오기
 		System.out.printf("%s\n", schedule.get(date));
 	}
 
@@ -34,14 +37,17 @@ public class PlanItem {
 		return ym;	
 	}
 
-	public static HashMap<String, String> cmdRegister(Scanner s, HashMap<String, String> schedule) {
+	public static void cmdRegister(Scanner s) throws IOException {
+		PrintWriter scheduleFile = new PrintWriter(new FileWriter("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt", true));
 		System.out.println("[일정 등록] 날짜를 입력하세요.(yyyy-mm-dd)");
 		System.out.print("> ");
 		String date = s.nextLine();
 		System.out.println("일정을 입력하세요.");
 		String dateSchedule = s.nextLine();
-		schedule.put(date, dateSchedule);
+		scheduleFile.write(date);
+		scheduleFile.write(">");
+		scheduleFile.println(dateSchedule);		
 		System.out.println("일정이 등록되었습니다.");
-		return schedule;
+		scheduleFile.close();
 	}
 }
