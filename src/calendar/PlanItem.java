@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+
 public class PlanItem {
 	public static void cmdMenu() {
 		System.out.println("+--------------+");
@@ -16,12 +19,23 @@ public class PlanItem {
 
 	}
 
-	public static void cmdSearch(HashMap<String, String> schedule, Scanner s) {
+	public static void cmdSearch(Scanner s) throws IOException {
 		System.out.println("[일정 검색] 날짜를 입력하세요.(yyyy.mm.dd)");
 		System.out.print("> ");
 		String date = s.nextLine();
 		//파일에서 일정 불러오기
-		System.out.printf("%s\n", schedule.get(date));
+		BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt"));
+		while(true) {
+			try {
+				String[] fileSplit = br.readLine().split(">");
+				if (date.equals(fileSplit[0])) {
+					System.out.println(fileSplit[1]);
+				}
+			} catch (NullPointerException e) {
+				break;
+			}	
+		}
+		br.close();
 	}
 
 	public static int[] cmdCal(int year, int month, Scanner s) {

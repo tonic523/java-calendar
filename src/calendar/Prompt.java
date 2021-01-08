@@ -30,7 +30,7 @@ public class Prompt {
 				PlanItem.cmdRegister(scanner);
 				break;
 			case '2':
-				PlanItem.cmdSearch(schedule, scanner);
+				PlanItem.cmdSearch(scanner);
 				break;
 			case '3':
 				temp = PlanItem.cmdCal(year, month, scanner);
