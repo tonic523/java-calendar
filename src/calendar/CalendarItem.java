@@ -1,6 +1,10 @@
 package calendar;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Calendar;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class CalendarItem {
 
@@ -54,7 +58,7 @@ public class CalendarItem {
 		System.out.println(" -------------------------------------------------");
 	}
 
-	public static void printCalendar(int year, int month) {
+	public static void printCalendarToday(int year, int month) {
 		getLeapdays(year); // 윤년 계산
 		int week = getWeekday(year, month); // 1일 요일 계산
 		calendarOutline(year, month);
@@ -70,35 +74,45 @@ public class CalendarItem {
 		}
 		System.out.println();
 	}
+
 //파일에 저장된 날짜 불러오기
-	public static void printCalendar(int year, int month, String date) {
+	public static void printCalendar(int year, int month) throws IOException {
+		String[] dateSplit = new String[3];
+		ArrayList<Integer> scheduleDate = new ArrayList<>();
 		calendarOutline(year, month);
 		getLeapdays(year); // 윤년 계산
 		int week = getWeekday(year, month); // 1일 요일 계산
-		String[] dateSplit = date.split("-");
+		BufferedReader br = new BufferedReader(
+				new FileReader("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt"));
+		while (true) {
+			try {
+				String[] fileSplit = br.readLine().split(">"); // 파일에서 날짜 분리
+				dateSplit = fileSplit[0].split("-");
+				if (year == Integer.parseInt(dateSplit[0]) && month == Integer.parseInt(dateSplit[1])) {
+					scheduleDate.add(Integer.parseInt(dateSplit[2]));
+				}
+			} catch (NullPointerException e) {
+				break;
+			}
+		}
 		for (int i = 0; i < week; i++) {
 			System.out.printf("  \t");
 		}
-		if (year == Integer.parseInt(dateSplit[0]) && month == Integer.parseInt(dateSplit[1])) {
-			for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
-				if (i == Integer.parseInt(dateSplit[2])) {
+		for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
+			System.out.print(i);
+			for (int j = 0; j < scheduleDate.size(); j++) {
+				if (i == scheduleDate.get(j)) {
 					System.out.printf(".");
 				}
-				System.out.printf(i + "\t");
-				if ((i + week) % 7 == 0) {
-					System.out.println();
-				}
 			}
-		} else {
-			for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
-				System.out.printf(i + "\t");
-				if ((i + week) % 7 == 0) {
-					System.out.println();
-				}
+			System.out.print("\t");
+			if ((i + week) % 7 == 0) {
+				System.out.println();
+			}
 
-			}
 		}
 		System.out.println();
+		br.close();
 	}
 
 }

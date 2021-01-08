@@ -17,7 +17,7 @@ public class Prompt {
 		temp = CalendarItem.getTodaysCalendar(year, month);
 		year = temp[0];
 		month = temp[1];
-		CalendarItem.printCalendar(year, month);
+		CalendarItem.printCalendarToday(year, month);
 		PlanItem.cmdMenu();
 		boolean b = true;
 		while (b) {
@@ -36,7 +36,7 @@ public class Prompt {
 				temp = PlanItem.cmdCal(year, month, scanner);
 				year = temp[0];
 				month = temp[1];
-				CalendarItem.printCalendar(year, month, date);
+				CalendarItem.printCalendar(year, month);
 				break;
 			case 'h':
 				PlanItem.cmdMenu();
