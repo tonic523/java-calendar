@@ -2,7 +2,7 @@ package calendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Prompt {
@@ -10,14 +10,14 @@ public class Prompt {
 	public static void main(String[] args) throws IOException {
 		int year = 0;
 		int month = 0;
+		int[] yearMonth = new int[2];
 		ArrayList<Integer> eventDate = new ArrayList<>();
 		char command = 0;
 		Scanner scanner = new Scanner(System.in);
 		// 오늘 날짜 월 연도 계산
-		int[] temp = new int[2];
-		temp = CalendarItem.getTodaysCalendar(year, month);
-		year = temp[0];
-		month = temp[1];
+		Calendar cal = Calendar.getInstance();
+		year = cal.get(Calendar.YEAR);
+		month = cal.get(Calendar.MONTH) + 1;
 		//
 		CalendarItem.printCalendar(year, month, eventDate);
 		PlanItem.cmdMenu();
@@ -35,9 +35,9 @@ public class Prompt {
 				PlanItem.cmdSearch(scanner);
 				break;
 			case '3':
-				temp = PlanItem.cmdCal(year, month, scanner);
-				year = temp[0];
-				month = temp[1];
+				yearMonth = PlanItem.cmdCal(year, month, scanner);
+				year = yearMonth[0];
+				month = yearMonth[1];
 				CalendarItem.printCalendar(year, month, eventDate);
 				break;
 			case 'h':

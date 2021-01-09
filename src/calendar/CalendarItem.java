@@ -2,28 +2,12 @@ package calendar;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.Calendar;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CalendarItem {
 
 	public static int[] MONTH_OF_MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	public CalendarItem() {
-
-	}
-
-	public static int[] getTodaysCalendar(int year, int month) {
-		int[] ym = new int[2];
-		Calendar cal = Calendar.getInstance();
-		year = cal.get(Calendar.YEAR);
-		ym[0] = year;
-		month = cal.get(Calendar.MONTH) + 1;
-		ym[1] = month;
-		return ym;
-
-	}
 
 	public static void getLeapdays(int year) {
 		int february = 28;

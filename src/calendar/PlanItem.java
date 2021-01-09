@@ -1,6 +1,5 @@
 package calendar;
 
-import java.util.HashMap;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.PrintWriter;
