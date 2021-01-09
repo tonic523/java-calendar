@@ -50,58 +50,27 @@ public class CalendarItem {
 		}
 		return week;
 	}
+	
+	public static void printCalendar(int year, int month, ArrayList<Integer> eventDate)throws IOException {
+		getLeapdays(year); // 윤년 계산
+		int week = getWeekday(year, month); // 1일 요일 계산
+		includeEvent(year, month, eventDate); // 일정있는 날짜 표시 
+		print(year, month, week, eventDate); // 달력 출력
+		eventDate.clear();
+	}
 
-	public static void calendarOutline(int year, int month) {
+	public static void print(int year, int month, int week, ArrayList<Integer> eventDate) throws IOException {
 		System.out.printf("     <<%4d %2d>>", year, month);
 		System.out.println();
 		System.out.println("SU\tMO\tTU\tWE\tTH\tFR\tSA");
 		System.out.println(" -------------------------------------------------");
-	}
-
-	public static void printCalendarToday(int year, int month) {
-		getLeapdays(year); // 윤년 계산
-		int week = getWeekday(year, month); // 1일 요일 계산
-		calendarOutline(year, month);
-		for (int i = 0; i < week; i++) {
-			System.out.printf("  \t");
-		}
-		for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
-			System.out.printf(i + "\t");
-			if ((i + week) % 7 == 0) {
-				System.out.println();
-			}
-
-		}
-		System.out.println();
-	}
-
-//파일에 저장된 날짜 불러오기
-	public static void printCalendar(int year, int month) throws IOException {
-		String[] dateSplit = new String[3];
-		ArrayList<Integer> scheduleDate = new ArrayList<>();
-		calendarOutline(year, month);
-		getLeapdays(year); // 윤년 계산
-		int week = getWeekday(year, month); // 1일 요일 계산
-		BufferedReader br = new BufferedReader(
-				new FileReader("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt"));
-		while (true) {
-			try {
-				String[] fileSplit = br.readLine().split(">"); // 파일에서 날짜 분리
-				dateSplit = fileSplit[0].split("-");
-				if (year == Integer.parseInt(dateSplit[0]) && month == Integer.parseInt(dateSplit[1])) {
-					scheduleDate.add(Integer.parseInt(dateSplit[2]));
-				}
-			} catch (NullPointerException e) {
-				break;
-			}
-		}
 		for (int i = 0; i < week; i++) {
 			System.out.printf("  \t");
 		}
 		for (int i = 1; i <= MONTH_OF_MAX_DAYS[month - 1]; i++) {
 			System.out.print(i);
-			for (int j = 0; j < scheduleDate.size(); j++) {
-				if (i == scheduleDate.get(j)) {
+			for (int j = 0; j < eventDate.size(); j++) {
+				if (i == eventDate.get(j)) {
 					System.out.printf(".");
 				}
 			}
@@ -112,6 +81,23 @@ public class CalendarItem {
 
 		}
 		System.out.println();
+	}
+
+	public static void includeEvent(int year, int month, ArrayList<Integer> eventDate) throws IOException {
+		String[] dateSplit = new String[3];
+		BufferedReader br = new BufferedReader(
+				new FileReader("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt"));
+		while (true) {
+			try {
+				String[] fileSplit = br.readLine().split(">"); // 파일에서 날짜 분리
+				dateSplit = fileSplit[0].split("-");
+				if (year == Integer.parseInt(dateSplit[0]) && month == Integer.parseInt(dateSplit[1])) {
+					eventDate.add(Integer.parseInt(dateSplit[2]));
+				}
+			} catch (NullPointerException e) {
+				break;
+			}
+		}
 		br.close();
 	}
 

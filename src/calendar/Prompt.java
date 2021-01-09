@@ -1,6 +1,7 @@
 package calendar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -9,15 +10,16 @@ public class Prompt {
 	public static void main(String[] args) throws IOException {
 		int year = 0;
 		int month = 0;
-		int[] temp = new int[2];
+		ArrayList<Integer> eventDate = new ArrayList<>();
 		char command = 0;
-		String date = "0000-0-0";
-		HashMap<String, String> schedule = new HashMap<>();
 		Scanner scanner = new Scanner(System.in);
+		// 오늘 날짜 월 연도 계산
+		int[] temp = new int[2];
 		temp = CalendarItem.getTodaysCalendar(year, month);
 		year = temp[0];
 		month = temp[1];
-		CalendarItem.printCalendarToday(year, month);
+		//
+		CalendarItem.printCalendar(year, month, eventDate);
 		PlanItem.cmdMenu();
 		boolean b = true;
 		while (b) {
@@ -36,7 +38,7 @@ public class Prompt {
 				temp = PlanItem.cmdCal(year, month, scanner);
 				year = temp[0];
 				month = temp[1];
-				CalendarItem.printCalendar(year, month);
+				CalendarItem.printCalendar(year, month, eventDate);
 				break;
 			case 'h':
 				PlanItem.cmdMenu();
