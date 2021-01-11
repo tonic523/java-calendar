@@ -18,6 +18,20 @@ public class PlanItem {
 
 	}
 
+	public static void cmdRegister(Scanner s) throws IOException {
+		PrintWriter scheduleFile = new PrintWriter(new FileWriter("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt", true));
+		System.out.println("[일정 등록] 날짜를 입력하세요.(yyyy-mm-dd)");
+		System.out.print("> ");
+		String date = s.nextLine();
+		System.out.println("일정을 입력하세요.");
+		String dateSchedule = s.nextLine();
+		scheduleFile.write(date);
+		scheduleFile.write(">");
+		scheduleFile.println(dateSchedule);		
+		System.out.println("일정이 등록되었습니다.");
+		scheduleFile.close();
+	}
+	
 	public static void cmdSearch(Scanner s) throws IOException {
 		System.out.println("[일정 검색] 날짜를 입력하세요.(yyyy.mm.dd)");
 		System.out.print("> ");
@@ -50,17 +64,5 @@ public class PlanItem {
 		return ym;	
 	}
 
-	public static void cmdRegister(Scanner s) throws IOException {
-		PrintWriter scheduleFile = new PrintWriter(new FileWriter("C:\\Users\\diddm\\Desktop\\JAVA\\calendar\\src\\calendar\\schedule.txt", true));
-		System.out.println("[일정 등록] 날짜를 입력하세요.(yyyy-mm-dd)");
-		System.out.print("> ");
-		String date = s.nextLine();
-		System.out.println("일정을 입력하세요.");
-		String dateSchedule = s.nextLine();
-		scheduleFile.write(date);
-		scheduleFile.write(">");
-		scheduleFile.println(dateSchedule);		
-		System.out.println("일정이 등록되었습니다.");
-		scheduleFile.close();
-	}
+	
 }
